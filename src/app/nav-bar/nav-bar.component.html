@@ -1,0 +1,24 @@
+<div class="bg-card" >
+    <nav  class="border-white-200  bg-cyan-500">
+        <div class="items-left  mx-auto ">
+           <div  class="hidden w-full md:block md:w-auto" id="navbar-default">
+               <ul class="font-medium flex flex-col justify-start p-2 md:p-0 border border-gray-100 rounded-lg bg-white-5000 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  bg-white-300">
+                
+                <li>
+                    <a  [routerLink]="['/patients']" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact:true}" class="block py-2 px-3 text-gray-700 rounded md:bg-transparen md:p-0 " aria-current="page">Patients</a>
+                 </li>
+                 <li>
+                    <a  [routerLink]="['/settings']" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact:true}" class="block py-2 px-3 text-gray-700 rounded md:bg-transparent  md:p-0 " aria-current="page">Settings</a>
+                 </li>
+                 <li>
+                    <a  [routerLink]="['/todo']" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact:true}" class="block py-2 px-3 text-gray-700 rounded md:bg-transparent  md:p-0 " aria-current="page">Todo</a>
+                 </li>
+               </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+  

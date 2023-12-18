@@ -1,0 +1,68 @@
+body
+{
+    background-color: lightcyan;
+    
+}
+
+.login{
+   width: 35%;
+   margin:0 auto;
+   margin-top:150px;
+   background-color: whitesmoke;
+   
+ 
+}
+.heading{
+    font-size:3rem;
+    text-align: center;
+    padding-top: 30px;
+
+}
+label
+{
+    padding-left: 2px;
+    font-size: 1rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.ForgotPassword
+{
+    margin-top: 20px;
+    color: blue;
+}
+
+.inputs
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+    margin: auto;
+    padding: 20px;
+    margin-bottom: 20px;
+
+   
+}
+
+input{
+
+border-radius: 5px ;
+padding-top:10px;
+padding-bottom: 10px;
+
+}
+.btn{
+    border-radius: 5px;
+    background-color: blue;
+    margin-bottom: 50px;
+    padding: 12px;
+    margin-top: 30px;
+    color:white;
+    font-size: 20px;
+}
+input.ng-touched.ng-valid{
+    border:1px solid green;
+}
+ .form-label{
+    font-weight: bold;
+ }

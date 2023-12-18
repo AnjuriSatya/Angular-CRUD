@@ -1,0 +1,33 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.left-25{
+    left: 25%;
+}
+.studentForm{
+    border: 1px solid black ;
+    border-radius: 6px;
+    padding: 10px;
+}
+.formWidth{
+    width: 100% !important;
+    padding: 15px;
+}
+.form-control {
+    width: 25%;
+}
+.margin{
+    margin-right:15px;
+}
+.patient{
+    overflow-x: hidden;
+    width: 96%;
+    margin: 0 auto;;
+    max-width: 100%
+}
+.min-w-full {
+    min-width: 97% !important;
+}

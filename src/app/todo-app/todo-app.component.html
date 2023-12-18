@@ -1,0 +1,34 @@
+<div class="container-fluid">
+    <div class="col-12 d-flex justify-center">
+        <div class="col-4 todo-block">
+            <h4 class="text-center mt-3 todo-header">Todo List</h4>
+            <div class="form-group d-flex justify-center">
+                <input type="text" class="form-control w-3/4" id="text" name="text" placeholder="Enter New"
+                    [(ngModel)]="todoValue">
+                <button class="btn btn-primary ml-5" (click)="addTodo()">Add</button>
+            </div>
+        </div>
+    </div>
+    <div class="todo-list d-flex justify-center  mt-3">
+        <h5 class="todo-list"> Add Todos</h5>
+    </div>
+    <div class="col-12 d-flex todo-single " *ngFor="let todo of todoList;let i = index;let ind = index">
+        <div class="d-flex">
+            <input type="checkbox" class=" todo-checkbox" [(ngModel)]="todo.value" (ngModelChange)="changeTodo(i)">
+            <p class=" col-9 mt-3">{{todo.content}}</p>
+        </div>
+        <button class="btn btn-danger float-right" (click)="deleteTodo(ind)"> Del</button>
+    </div>
+
+
+    <div class="todo-list d-flex justify-center  mt-3">
+        <h5 class="todo-list2 text-lime-500"> Completed Todos</h5>
+    </div>
+    <div class="col-12 d-flex todo-single " *ngFor="let todo of finishedList;let i=index;let indCompleted=index">
+        <div class="d-flex">
+            <input type="checkbox" class=" todo-checkbox" [(ngModel)]="todo.value" (ngModelChange)="changeFinishedTodo(i)">
+            <p class=" col-9 mt-3">{{todo.content}}</p>
+        </div>
+        <button class="btn btn-danger float-right" (click)="deletedone(indCompleted)"> Del</button>
+    </div>
+</div>
