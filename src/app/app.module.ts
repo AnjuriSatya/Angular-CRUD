@@ -29,6 +29,7 @@ import { TodoService } from './todo.service';
 import { TodoAppComponent } from './todo-app/todo-app.component';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 import { DatePipe } from '@angular/common';
+import { ProductslistComponent } from './productslist/productslist.component';
 
 
 
@@ -52,7 +53,8 @@ import { DatePipe } from '@angular/common';
     TodoListComponent,
     TodoFormComponent,
     TodoAppComponent,
-    ConfirmDeleteComponent
+    ConfirmDeleteComponent,
+    ProductslistComponent
   ],
   imports: [
     BrowserModule,

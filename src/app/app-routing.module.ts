@@ -6,6 +6,7 @@ import { PatientsComponent } from './patients/patients.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TodoComponent } from './todo/todo.component';
+import { ProductsComponent } from './products/products.component';
 const routes: Routes = [
 { path: '', redirectTo: '/login', pathMatch: 'full' },
 { path: 'login', component: LoginComponent },
@@ -13,7 +14,9 @@ const routes: Routes = [
 { path: 'patients', component:PatientsComponent},
 { path: 'nav-bar', component:NavBarComponent},
 { path: 'settings', component:SettingsComponent},
-{ path: 'todo', component:TodoComponent}
+{ path: 'todo', component:TodoComponent},
+{path:'products', component:ProductsComponent}
+
 ];
 
 
