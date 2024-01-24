@@ -1,1 +1,4 @@
 li > a.active { color:blue}
+.card-margin{
+    margin-right: 0 !important;
+}

@@ -2,7 +2,7 @@
     <nav  class="border-white-200  bg-cyan-500">
         <div class="items-left  mx-auto ">
            <div  class="hidden w-full md:block md:w-auto" id="navbar-default">
-               <ul class="font-medium flex flex-col justify-start p-2 md:p-0 border border-gray-100 rounded-lg bg-white-5000 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  bg-white-300">
+               <ul class="font-medium flex flex-col  p-2 md:p-0 border border-gray-100 rounded-lg bg-white-5000 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  bg-white-300">
                 
                 <li>
                     <a  [routerLink]="['/patients']" routerLinkActive="active"
@@ -16,6 +16,16 @@
                     <a  [routerLink]="['/todo']" routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact:true}" class="block py-2 px-3 text-gray-700 rounded md:bg-transparent  md:p-0 " aria-current="page">Todo</a>
                  </li>
+                 <li>
+                    <a  routerLink="/products" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact:true}" class="block py-2 px-3 text-gray-700 rounded md:bg-transparent  md:p-0 " aria-current="page">Products</a>
+                 </li>
+                 <li class="flex  justify-end m-auto card-margin">
+                    <a  [routerLink]="['/cart']" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact:true}" class="block py-2 px-3 text-gray-700 rounded md:bg-transparent md:p-0" aria-current="page">Cart</a>
+                 </li>
+                 
+
                </ul>
             </div>
         </div>
