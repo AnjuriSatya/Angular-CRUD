@@ -1,9 +1,9 @@
 
-<h1 mat-dialog-title>Confirmation</h1>
+<h1 mat-dialog-title>Confirmation </h1>
 <div mat-dialog-content>
   <p>{{ data.message }}</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button class="cancel" (click)="onNoClick()">Cancel</button>
-  <button mat-button  class="yes" (click)="onYesClick()" cdkFocusInitial>Yes</button>
+  <button mat-button class="Cancel" (click)="deleteCancel()">Cancel</button>
+  <button mat-button  class="Delete" (click)="deleteConfirm()">Delete</button>
 </div>

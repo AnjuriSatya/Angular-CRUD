@@ -2,11 +2,11 @@
     <nav class="nav-bar">
         <div class=" d-flex justify-content-between items-center mx-5 mt-4 py-2">
           <h1 class=" m-0"> Patient List</h1>
-        <button  class="btn btn-primary" (click)="addPatient()">Add Patient</button>
+        <button  class="btn btn-primary" (click)="add()">Add Patient</button>
         </div>
       </nav>
       <div class=" mx-5 my-3 text-lg">
-        <input type="text" class="form-control " placeholder="Search..." [(ngModel)] = "searchTerm">
+        <input type="text" class="form-control " placeholder="Search Patient with Id or Name.." [(ngModel)] = "searchTerm">
       </div>
     <table class="min-w-full mx-10 my-8 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-solid border-2 border-black-500 outline outline-offset-2 outline-black-500">
         <thead class="text-xs text-gray-700 uppercase bg-green-50 dark:bg-green-700 dark:text-gray-400">
@@ -17,7 +17,7 @@
                 <th scope="col" class="px-6 py-3">
                     Name
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-10 py-3">
                     DOB
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -26,99 +26,45 @@
                 <th scope="col" class="px-6 py-3">
                     Mobile Number
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-3 py-3">
                     Gender
                  </th>
-                 <th scope="col" class="px-6 py-3">
+                 <th scope="col" class="px-20 py-3">
+                  Email
+                 </th>
+                 <th scope="col" class="px-8 py-3">
                   Action
                  </th>
-                 
-
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor = "let data of patients | patient:searchTerm ;let i = index " class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-          
+            <tr *ngFor = "let patientdata of patients | patient:searchTerm ;let i = index " class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td class="px-6 py-4">
-                  {{ data.id }}
-                </td>
-                <td class="px-6 py-4">
-                  {{ data.name}}
+                  {{ patientdata.Id }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ data.dob  |datePipe}}
+                  {{ patientdata.Name}}
                 </td>
                 <td class="px-6 py-4">
-                  {{ data.age}}
+                    {{ patientdata.DOB}}
                 </td>
                 <td class="px-6 py-4">
-                    {{data.mobilenumber}}
+                  {{ patientdata.Age}}
                 </td>
                 <td class="px-6 py-4">
-                    {{ data.gender}}
+                    {{patientdata.MobileNumber}}
                 </td>
-                <td> <button class="btn btn-primary mr-3" (click)="editPatient(data,i)">Edit</button>
-                  <button class="btn btn-danger" (click)="delPatient(data.id)">Delete</button>
+                <td class="px-6 py-4">
+                  {{ patientdata.Gender}}
+              </td>
+              <td class="px-6 py-4">
+                {{ patientdata.Email}}
+            </td>
+            <td>
+                 <button class="btn btn-primary mr-3" (click)="edit(patientdata,i)">Edit</button> 
+                  <button class="btn btn-danger" (click)="deletePatient(patientdata.Id)">Delete</button>
                 </td>
-                
-            </tr>
-           
+         </tr>
         </tbody>
     </table>
 </div>
-<!-- <div class="studentForm form col-6 position-relative left-25" *ngIf = "addPatientData||editPatientData">
-<div >
-  <h3 class="text-pink-800">{{ editPatientData ? 'Edit Patient': 'Add Patient'}}</h3>
-  </div>
-    <form [formGroup]="patientDetailsForm" class="formWidth">
-      
-       <div>
-        <label for="" class="form-label" >Id</label>
-        <input type="text"  class="form-control" name="id" id="id" formControlName="id"  placeholder="Enter your Id">
-         <div  class="text-danger" appNumericonly  *ngIf="patientDetailsForm.get('id')?.touched && patientDetailsForm.get('id')?.hasError('required')">
-          *id is required
-          </div>
-      </div>
-      <div>
-        <label for="" class="form-label" >Name</label>
-        <input type="text" class="form-control"   name="name" id="name" formControlName="name" placeholder="Enter your Name"(keypress)="omit_special_char_number($event)"(input)="($event)" >
-         <div class="text-danger"  *ngIf="patientDetailsForm.get('name')?.touched && patientDetailsForm.get('name')?.hasError('required')">
-         *name is required
-         </div>
-      </div>
-      <div>
-        <label for="" class="form-label" >DOB</label>
-        <input type="date" class="form-control" name="dob" id="dob"  formControlName="dob"  placeholder="Enter your DOB" max="{{ maxDate }}" [(ngModel)]="selectedDate">
-        
-         <div  class="text-danger" *ngIf="patientDetailsForm.get('dob')?.touched && patientDetailsForm.get('dob')?.hasError('required')">
-          *dob is mandatory
-          </div>
-      </div> 
-      <div>
-        <label for="" class="form-label" >Age</label>
-        <input type="text"appNumericOnly class="form-control"  name="age" id="age" formControlName="age"   placeholder="Enter your Age">
-        <div class="text-danger" *ngIf="patientDetailsForm.get('age')?.touched && patientDetailsForm.get('age')?.hasError('required')">
-          *age is required
-          </div>
-      </div>
-      <div>
-        <label for="" class="form-label" >Mobile Number</label>
-        <input type="text"  appNumericOnly class="form-control"   name="mobilenumber" id="mobilenumber" formControlName="mobilenumber"  placeholder="Enter Mobile Number"  maxlength="10"  >
-         <div class="text-danger" *ngIf="patientDetailsForm.get('mobilenumber')?.touched && patientDetailsForm.get('mobilenumber')?.hasError('required') ">
-         *mobilenumber is required
-         </div>
-      </div>
-      <div>
-        <label for="gender" class="form-label">Gender</label><br>
-        <input type="radio" id="male" name="gender" value="M" formControlName="gender"  placeholder="Enter your Gender"  >
-        <label for="male">Male</label>
-        <input type="radio" id="female" name="gender" value="F" formControlName="gender">
-        <label for="female">Female</label>
-        <div class="error-msg text-danger" *ngIf="patientDetailsForm.get('gender')?.touched && patientDetailsForm.get('gender')?.hasError('required')">
-          *Please select a gender
-        </div>
-      </div>      
-     <button  class="btn btn-success mr-4" (click)="save()" [disabled]="patientDetailsForm.invalid">Save</button>
-     <button  class="btn btn-info " (click)="clearForm()">Cancel</button>
-    </form>
-</div> -->

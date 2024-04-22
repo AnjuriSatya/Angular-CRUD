@@ -10,9 +10,7 @@ export class NumericonlyDirective {
 
   @HostListener('input', ['$event.target.value'])
   onInput(value: string) {
-    // Replace non-numeric characters with an empty string
     const newValue = value.replace(/[^0-9]/g, '');
     this.ngControl?.control?.setValue(newValue);
   }
-  
 }

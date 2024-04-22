@@ -2,9 +2,14 @@
     width:100%;
 }
 .btn2{
-    background-color: aqua;
+    background-color: red;
     padding-right: 10px;
     padding-left: 10px;
     color: white;
     border-radius: 5px;
+    font-size: medium;
+}
+input#name:hover
+{
+  border-color: brown;
 }

@@ -13,11 +13,11 @@ export class ConfirmationDialogComponent  {
 
   ngOnInit(): void {
   }
-  onNoClick(): void {
+  deleteCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onYesClick(): void {
+  deleteConfirm(): void {
     this.dialogRef.close(true);
   }
 }

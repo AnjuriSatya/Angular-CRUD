@@ -3,7 +3,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { DatePipePipe } from '../date-pipe.pipe';
+import { DatepipePipe } from '../datepipe.pipe';
+import { PatientService } from '../patient.service';
 
 
 
@@ -15,125 +16,129 @@ import { DatePipePipe } from '../date-pipe.pipe';
 export class ModalComponent implements OnInit {
 
   patientDetailsForm: any = FormGroup;
-  addPatientData: boolean = true;
-  editPatientData: boolean = false;
+  addPatient: boolean = true;
+  editPatient: boolean = false;
   index: any;
-  studentId: any;
   searchTerm: string = '';
-  selectedDate: any;
-  maxDate: string;
-  // dob = new Date();
-  // displayage:any;
-  // myFormControlDOB = new FormControl();
-  // myFormControlAge = new FormControl();
-
- url = "./assets/google.svg";
-
-
-  patients = [
-    { "id": 1, "name": "Vinodh", "dob": "12-12-2000", "age": 35, "mobilenumber": 8887235865, "gender": "F" },
-    { "id": 2, "name": "Swapna", "dob": "22-09-2002", "age": 28, "mobilenumber": 7784583910, "gender": "F" },
-    { "id": 3, "name": "Danial", "dob": "09-10-1999", "age": 42, "mobilenumber": 9739024780, "gender": "M" },
-    { "id": 4, "name": "Satya", "dob": "10-11-2002", "age": 23, "mobilenumber": 9963876419, "gender": "F" },
-    { "id": 5, "name": "Ajay", "dob": "01-08-1993", "age": 39, "mobilenumber": 7950825619, "gender": "M" },
-    { "id": 6, "name": "Manoj", "dob": "06-03-1997", "age": 33, "mobilenumber": 7890490324, "gender": "M" },
-    { "id": 7, "name": " Lucky", "dob": "08-02-1996", "age": 53, "mobilenumber": 9730823981, "gender": "F" },
-    { "id": 8, "name": "Sunny", "dob": "12-06-1998", "age": 25, "mobilenumber": 8903467219, "gender": "M" }
-  ];
-
-  constructor(private toastr: ToastrService, public dialog: MatDialog,public datePipe: DatePipePipe,
+  errorMessage!:string;
+  readonly:boolean= true;
+ 
+  constructor( private _patientService:PatientService,private toastr: ToastrService, public dialog: MatDialog,public datePipe: DatepipePipe,
     private dialogRef: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-    const today = new Date();
-    this.maxDate = today.toISOString().split('T')[0]
+    @Inject(MAT_DIALOG_DATA) public dataModel: any) {
  }
 
   ngOnInit(): void {
+    this.inItForm();
+    this.addPatient = this.dataModel ? false : true;
+    if(!this.addPatient) {
+      this.patchForm();
+    }
+    this.readonly = !this.addPatient;
+  }
+
+  inItForm(){
     this.patientDetailsForm = new FormGroup({
       id: new FormControl('', [Validators.required]),
-      name: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z\s]+$/)]),
       dob: new FormControl('', [Validators.required]),
-      age: new FormControl('',[Validators.required]),
+      age: new FormControl(''),
       mobilenumber: new FormControl('', [Validators.required, Validators.pattern("[0-9 ]{10}")]),
-      gender: new FormControl('', [Validators.required])
-    })
-     console.log(this.data, "dsatata");
-     console.log(typeof this.data.info.dob);
-    this.patchForm();
+      gender: new FormControl('', [Validators.required]),
+      email: new FormControl('',[Validators.required])
+    });
+    this.patientDetailsForm.get('dob').valueChanges.subscribe((dob:Date)=>{
+     this.calculateAge(dob);
+    });
   }
+
+    calculateAge(dob: Date) {
+      if (dob) {
+        const today = new Date();
+        const birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        if (today.getMonth() < birthDate.getMonth() ||
+            (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+        this.patientDetailsForm.get('age').setValue(age);
+      }
+    }
 
   save() {
-    if (this.addPatientData) {
-      let data = {
-        id: this.patientDetailsForm.value['id'],
-        name: this.patientDetailsForm.value['name'],
-        dob: this.patientDetailsForm.value['dob'],
-        age: this.patientDetailsForm.value['age'],
-        mobilenumber: this.patientDetailsForm.value['mobilenumber'],
-        gender: this.patientDetailsForm.value['gender'],
+    let patientsData = {
+      Id: this.patientDetailsForm.value['id'],
+      Name: this.patientDetailsForm.value['name'],
+      DOB: this.patientDetailsForm.value['dob'],
+      Age: this.patientDetailsForm.value['age'],
+      MobileNumber: this.patientDetailsForm.value['mobilenumber'],
+      Gender: this.patientDetailsForm.value['gender'],
+      Email:this.patientDetailsForm.value['email']
 
-      }
-
-      this.patientDetailsForm.reset();
-      if (this.data) {
-        this.toastr.success('', 'Update Patient Successfully', {
-          positionClass: 'toast-top-right'
-        });
-      }
-      else {
-        this.toastr.success('', 'Add Patient Successfully', {
-          positionClass: 'toast-top-right'
-        });
-      }
-      this.dialogRef.close(data);
-     this.addPatientData = false;
-      }
-
-  } 
-
-  clearForm() {
-    this.patientDetailsForm.reset();
-    
+    }
+    if (this.addPatient) {
+      this.readonly = false;
+      this._patientService.createPatient(patientsData).subscribe(
+        (response: any) => {
+          if (response.success) {
+            this.toastr.success('', 'Created Patient Successfully', {
+              positionClass: 'toast-bottom-center'
+            });
+            this.dialogRef.close(true);
+          } else if (response.error) {
+            
+            if (response.error.toLowerCase().includes('already exists')) {
+              this.toastr.error('', 'Error', {
+                positionClass: 'toast-bottom-center',
+              
+              });
+            } 
+          }
+        },
+        (error) => {
+          console.error('Error creating patient:', error);
+          this.toastr.error('',error.error.message ,{
+            positionClass: 'toast-bottom-center'
+          });
+        }
+      );
+    }
+    else {
+      this.readonly = true;
+      this._patientService.UpdatePatient(this.patientDetailsForm.value['id'], patientsData).subscribe((response: any)=>
+      {
+        if (response.success) {
+          this.toastr.success('', 'Updated Patient Successfully', {
+            positionClass: 'toast-bottom-center'
+          });
+          this.dialogRef.close(true);
+        }
+        else {
+          this.toastr.error('', 'Failed to Update a Patient', {
+            positionClass: 'toast-bottom-center'
+          });
+          this.dialogRef.close(false);
+        }
+      });
+    }
+      
   }
-
-  onSearch(searchValue: string) {
-    this.searchTerm = searchValue;
+  clearForm() 
+  {
+    this.patientDetailsForm.reset(); 
   }
-  omit_special_char_number(event: any) {
-    let k;
-    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
-    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32);
-  }
-  
 
   patchForm(){
-   
     this.patientDetailsForm.patchValue({
-      id: this.data.info.id,
-      name: this.data.info.name,
-      dob:this.data.info.dob,
-      age: this.data.info.age,
-      mobilenumber: this.data.info.mobilenumber,
-      gender: this.data.info.gender
+      id: this.dataModel.info.Id,
+      name: this.dataModel.info.Name,
+      dob:this.dataModel.info.DOB,
+      age: this.dataModel.info.Age,
+      mobilenumber: this.dataModel.info.MobileNumber,
+      gender: this.dataModel.info.Gender,
+      email:this.dataModel.info.Email
     });
-
     console.log(this.patientDetailsForm,'test');
   }
-  uploadFile(){
-    
-  }
-//    CalculateAge()
-//      {
-//       console.log("DOB Value",this.myFormControlDOB.value);
-// const seldate=new Date(this.myFormControlDOB.value);
-// const year=new Date().getFullYear();
-// const syear=seldate.getFullYear();
-// this.displayage=year-syear;
-// if (isNaN(this.displayage)) this.displayage = '';
-// this.myFormControlAge.setValue(this.displayage);
-// console.log(this.myFormControlAge.value);
-
-//     }
-
   
-}
+}     

@@ -1,0 +1,22 @@
+<div class = "backProduct mt-4">
+  <img src="../../assets/icon.svg" class = "backIcon">
+  <span class = "underline text-lg backCartText" (click) = "backToProduct()">Back To Product</span>
+</div>
+<div class="max-w-xl mx-auto bg-white shadow-md rounded p-12 mt-8">
+  <div class="headings">
+  <h2 class="text-2xl font-bold mb-6">Products</h2>
+  <h2 class="text-2xl font-bold ">Quantity</h2>
+  <h2></h2>
+</div>
+  <div>
+    <div *ngFor="let item of items">
+    <div class="headings">
+     <p class = "text-lg">{{ item.name }} </p>
+       <p class = "text-lg">{{ item.quantity }}</p>
+       <img src = "../../assets/edit.svg" class = "editIcon"(click)="clickEdit()"
+       >
+    
+  </div>
+ </div>
+</div>
+</div>

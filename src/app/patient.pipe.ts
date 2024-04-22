@@ -10,9 +10,7 @@ export class PatientPipe implements PipeTransform {
     }
     searchTerm = searchTerm.toLowerCase();
     return patients.filter((data: any) => {
-      return data.id.toString().includes(searchTerm) || data.name.toLowerCase().includes(searchTerm);
+      return data.Id.toString().includes(searchTerm) || data.Name.toLowerCase().startsWith(searchTerm);
     });
   }
 }
-
-

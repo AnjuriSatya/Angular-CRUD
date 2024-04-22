@@ -1,63 +1,19 @@
-<div class="card w-1/4 m-auto h- mt-10 card-body">
-     <div>
-      <div class="flex justify-between">
-        <h1>Products List</h1>
-        <h1> Add To Cart</h1>
-      </div>
-        <div class="flex justify-between">
-        <div class="card w-full h-15 pl-7 py-4 mb-4 mr-14">
-          <div> Product Name:Realme</div>  
-           <div> Price:15000</div> 
+   <div class="max-w-xl mx-auto bg-white shadow-md rounded p-12 mt-20">
+    <h2 class="text-3xl font-bold mb-6 text-blue-600">Products</h2>
+    <div class="grid my-3" *ngFor = "let product of products">
+        <div class="productCard p-4">
+            <div>
+            <h2 class="card-title">{{ product.name }}</h2>
+             <p class="card-text price">{{ product.price }}</p>  
+           </div>
+           <div class="buttons">
+            <button (click)="removeFromCart(product)" class="buttonText">-</button>
+            <span class="quantity">{{ product.quantity }}</span>
+            <button (click)="addToCart(product)" class="buttonText">+</button>
+           </div> 
         </div>
-        <button type="button" class="text-white bg-blue-700  rounded-lg h-10 px-6 ml-10
-        dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4 ">+</button>
-       </div>
-       <div class="flex justify-between">
-        <div class="card w-full h-15 pl-7 py-4 mb-4 mr-14">
-          <div> Product Name:Realme</div>  
-           <div> Price:15000</div> 
-        </div>
-        <button type="button" class="text-white bg-blue-700  rounded-lg h-10 px-4 ml-10
-        dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4 
-        ">+</button>
-       </div>
-       <div class="flex justify-between">
-        <div class="card w-full h-15 pl-7 py-4 mb-4 mr-14">
-          <div> Product Name:Realme</div>  
-           <div> Price:15000</div> 
-        </div>
-        <button type="button" class="text-white bg-blue-700  rounded-lg h-10 px-4 ml-10 
-        dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4 float-right">+</button>
-       </div>
-       <div class="flex justify-between">
-        <div class="card w-full h-15 pl-7 py-4 mb-4 mr-14">
-          <div> Product Name:Realme</div>  
-           <div> Price:15000</div> 
-        </div>
-        <button type="button" class="text-white bg-blue-700  rounded-lg h-10 px-4 ml-10
-        dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4 float-right">+</button>
-       </div>
-       
     </div>
-    
-        <!-- <h1 class="sec-head flex justify-end"> Add To Cart</h1> -->
-        <!-- <div class="add-buttons">
-         <div class=""> 
-        <button type="button" class="text-white bg-blue-700  rounded-lg text-sm px-5 py-3.5 me-2 mb-2
-         dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4 float-right">+Add</button>
-        </div> 
-        <div class="mt-5">
-         <button type="button" class="text-white bg-blue-700  rounded-lg text-sm px-5 py-3.5 me-2 mb-2
-         dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4 float-right" >+Add</button>
-        </div> 
-        <div class="mt-5">
-         <button type="button" class="text-white bg-blue-700  rounded-lg text-sm px-5 py-3.5 me-2 mb-2
-         dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4 float-right">+Add</button>
-        </div>
-        <div class="mt-5">
-         <button type="button" class="text-white bg-blue-700  rounded-lg text-sm px-5 py-3.5 me-2 mb-2
-         dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4 float-right">+Add</button>
-        </div>
-        </div> -->
-    
-    </div>
+</div>
+<div class = "add">
+  <button class="AddButton" (click) = AddToCart()>Add To Cart</button>
+</div>

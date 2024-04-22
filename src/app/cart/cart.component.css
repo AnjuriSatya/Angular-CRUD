@@ -1,0 +1,29 @@
+.headings{
+    display:flex;
+    justify-content: space-around;
+    
+}
+
+.backIcon{
+ height:25px ;
+ width:25px;
+ color:#005cab ;
+}
+.backProduct{
+    display:flex;
+    align-items: center;
+    width:30.5%;
+    margin: auto;
+    color:blue;
+}
+.backCartText{
+    color: rgb(40,101,204);
+    cursor: pointer;
+}
+.editIcon{
+    height:15px;
+    width:15px;
+    cursor:pointer;
+
+    
+}
